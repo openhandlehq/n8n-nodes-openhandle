@@ -1,5 +1,5 @@
 {
-	"name": "n8n-nodes-openhandle",
+	"name": "@openhandle/n8n-nodes-openhandle",
 	"version": "0.1.0",
 	"description": "n8n node for Openhandle: read public Instagram, TikTok, X, and Reddit data",
 	"license": "MIT",
@@ -60,5 +60,8 @@
 	},
 	"peerDependencies": {
 		"n8n-workflow": "*"
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }

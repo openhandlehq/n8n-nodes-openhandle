@@ -1,4 +1,4 @@
-# n8n-nodes-openhandle
+# @openhandle/n8n-nodes-openhandle
 
 This is an n8n community node for [Openhandle](https://openhandle.dev). It reads public Instagram, TikTok, X, and Reddit data inside your n8n workflows.
 
@@ -6,7 +6,7 @@ Look up profiles or pull an account's latest posts. You can also search hashtags
 
 ## Install
 
-In n8n, open **Settings > Community Nodes**, select **Install**, and enter `n8n-nodes-openhandle`.
+In n8n, open **Settings > Community Nodes**, select **Install**, and enter `@openhandle/n8n-nodes-openhandle`.
 
 The n8n docs explain [how community nodes work](https://docs.n8n.io/integrations/community-nodes/installation/).
 
