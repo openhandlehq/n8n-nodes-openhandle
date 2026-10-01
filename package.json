@@ -1,0 +1,64 @@
+{
+	"name": "n8n-nodes-openhandle",
+	"version": "0.1.0",
+	"description": "n8n node for Openhandle: read public Instagram, TikTok, X, and Reddit data",
+	"license": "MIT",
+	"homepage": "https://github.com/openhandlehq/n8n-nodes-openhandle",
+	"bugs": {
+		"url": "https://github.com/openhandlehq/n8n-nodes-openhandle/issues"
+	},
+	"keywords": [
+		"n8n-community-node-package",
+		"openhandle",
+		"instagram",
+		"tiktok",
+		"twitter",
+		"reddit",
+		"social-media"
+	],
+	"author": {
+		"name": "Openhandle",
+		"email": "hello@openhandle.dev",
+		"url": "https://openhandle.dev"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/openhandlehq/n8n-nodes-openhandle.git"
+	},
+	"scripts": {
+		"generate": "node scripts/generate.mjs",
+		"generate:check": "node scripts/generate.mjs --check",
+		"build": "n8n-node build",
+		"build:watch": "tsc --watch",
+		"check": "node scripts/check-routes.mjs",
+		"dev": "n8n-node dev",
+		"lint": "n8n-node lint",
+		"lint:fix": "n8n-node lint --fix",
+		"release": "n8n-node release",
+		"prepublishOnly": "n8n-node prerelease"
+	},
+	"files": [
+		"dist"
+	],
+	"n8n": {
+		"n8nNodesApiVersion": 1,
+		"strict": true,
+		"credentials": [
+			"dist/credentials/OpenhandleApi.credentials.js"
+		],
+		"nodes": [
+			"dist/nodes/Openhandle/Openhandle.node.js"
+		]
+	},
+	"devDependencies": {
+		"@n8n/node-cli": "0.50.4",
+		"eslint": "9.32.0",
+		"ignore": "7.0.11",
+		"prettier": "3.6.2",
+		"release-it": "^21.1.0",
+		"typescript": "5.9.2"
+	},
+	"peerDependencies": {
+		"n8n-workflow": "*"
+	}
+}
