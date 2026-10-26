@@ -27,13 +27,14 @@ export const fieldProperties: INodeProperties[] = [
 		description: 'Native identifier of the hashtag',
 		displayOptions: {
 			show: {
-				resource: ['instagram', 'tiktok'],
+				resource: ['instagram', 'tiktok', 'youtube'],
 				operation: [
 					'instagram.hashtag.get',
 					'instagram.hashtag.posts.list',
 					'instagram.hashtag.reels.list',
 					'tiktok.hashtag.get',
 					'tiktok.hashtag.posts.list',
+					'youtube.hashtag.posts.list',
 				],
 			},
 		},
@@ -99,7 +100,7 @@ export const fieldProperties: INodeProperties[] = [
 		description: 'Platform post ID or shortcode. To read a post from its link, use the URL resource.',
 		displayOptions: {
 			show: {
-				resource: ['instagram', 'reddit', 'tiktok', 'twitter'],
+				resource: ['instagram', 'reddit', 'tiktok', 'twitter', 'youtube'],
 				operation: [
 					'instagram.post.clipMetadata.get',
 					'instagram.post.comment.replies.list',
@@ -122,6 +123,12 @@ export const fieldProperties: INodeProperties[] = [
 					'twitter.post.comments.list',
 					'twitter.post.get',
 					'twitter.post.reposters.list',
+					'youtube.post.comment.replies.list',
+					'youtube.post.comments.list',
+					'youtube.post.get',
+					'youtube.post.related.list',
+					'youtube.post.soundPosts.list',
+					'youtube.post.transcript.get',
 				],
 			},
 		},
@@ -136,7 +143,7 @@ export const fieldProperties: INodeProperties[] = [
 		placeholder: '@openai',
 		displayOptions: {
 			show: {
-				resource: ['instagram', 'tiktok', 'twitter'],
+				resource: ['instagram', 'tiktok', 'twitter', 'youtube'],
 				operation: [
 					'instagram.profile.about.get',
 					'instagram.profile.businessRecommendations.list',
@@ -168,6 +175,14 @@ export const fieldProperties: INodeProperties[] = [
 					'twitter.profile.media.list',
 					'twitter.profile.posts.list',
 					'twitter.profile.replies.list',
+					'youtube.profile.communityPosts.list',
+					'youtube.profile.get',
+					'youtube.profile.livestreams.list',
+					'youtube.profile.playlists.list',
+					'youtube.profile.products.list',
+					'youtube.profile.search.list',
+					'youtube.profile.shorts.list',
+					'youtube.profile.videos.list',
 				],
 			},
 		},
@@ -270,6 +285,34 @@ export const fieldProperties: INodeProperties[] = [
 		},
 	},
 	{
+		displayName: 'Community Post',
+		name: 'identifier',
+		type: 'string',
+		default: '',
+		required: true,
+		description: 'Native identifier of the community post',
+		displayOptions: {
+			show: {
+				resource: ['youtube'],
+				operation: ['youtube.communityPost.comments.list', 'youtube.communityPost.get'],
+			},
+		},
+	},
+	{
+		displayName: 'Playlist',
+		name: 'identifier',
+		type: 'string',
+		default: '',
+		required: true,
+		description: 'Native identifier of the playlist',
+		displayOptions: {
+			show: {
+				resource: ['youtube'],
+				operation: ['youtube.playlist.posts.list'],
+			},
+		},
+	},
+	{
 		displayName: 'Comment ID',
 		name: 'commentId',
 		type: 'string',
@@ -278,12 +321,33 @@ export const fieldProperties: INodeProperties[] = [
 		description: 'Opaque native comment ID',
 		displayOptions: {
 			show: {
-				resource: ['instagram', 'tiktok', 'twitter'],
+				resource: ['instagram', 'tiktok', 'twitter', 'youtube'],
 				operation: [
 					'instagram.post.comment.replies.list',
 					'tiktok.post.comment.replies.list',
 					'twitter.post.comment.replies.list',
+					'youtube.post.comment.replies.list',
 				],
+			},
+		},
+	},
+	{
+		displayName: 'Replies Reference',
+		name: 'repliesReference',
+		type: 'string',
+		default: '',
+		required: true,
+		description: 'The repliesToken of the comment whose replies to read',
+		routing: {
+			send: {
+				type: 'query',
+				property: 'token',
+			},
+		},
+		displayOptions: {
+			show: {
+				resource: ['youtube'],
+				operation: ['youtube.post.comment.replies.list'],
 			},
 		},
 	},
@@ -350,7 +414,7 @@ export const fieldProperties: INodeProperties[] = [
 		},
 		displayOptions: {
 			show: {
-				resource: ['instagram', 'reddit', 'tiktok', 'twitter'],
+				resource: ['instagram', 'reddit', 'tiktok', 'twitter', 'youtube'],
 				operation: [
 					'instagram.profile.followers.search',
 					'instagram.profile.following.search',
@@ -372,6 +436,11 @@ export const fieldProperties: INodeProperties[] = [
 					'twitter.search.posts.list',
 					'twitter.search.suggestions.list',
 					'twitter.search.users.list',
+					'youtube.profile.search.list',
+					'youtube.search.playlists.list',
+					'youtube.search.posts.list',
+					'youtube.search.profiles.list',
+					'youtube.search.suggestions.list',
 				],
 			},
 		},
@@ -543,7 +612,7 @@ export const fieldProperties: INodeProperties[] = [
 		},
 		displayOptions: {
 			show: {
-				resource: ['instagram', 'reddit', 'tiktok', 'twitter'],
+				resource: ['instagram', 'reddit', 'tiktok', 'twitter', 'youtube'],
 				operation: [
 					'instagram.comment.likers.list',
 					'instagram.hashtag.get',
@@ -651,6 +720,32 @@ export const fieldProperties: INodeProperties[] = [
 					'twitter.search.posts.list',
 					'twitter.search.suggestions.list',
 					'twitter.search.users.list',
+					'youtube.charts.artists.list',
+					'youtube.charts.tracks.list',
+					'youtube.charts.videos.list',
+					'youtube.communityPost.comments.list',
+					'youtube.communityPost.get',
+					'youtube.hashtag.posts.list',
+					'youtube.playlist.posts.list',
+					'youtube.post.comment.replies.list',
+					'youtube.post.comments.list',
+					'youtube.post.get',
+					'youtube.post.related.list',
+					'youtube.post.soundPosts.list',
+					'youtube.post.transcript.get',
+					'youtube.profile.communityPosts.list',
+					'youtube.profile.get',
+					'youtube.profile.livestreams.list',
+					'youtube.profile.playlists.list',
+					'youtube.profile.products.list',
+					'youtube.profile.search.list',
+					'youtube.profile.shorts.list',
+					'youtube.profile.videos.list',
+					'youtube.search.playlists.list',
+					'youtube.search.posts.list',
+					'youtube.search.profiles.list',
+					'youtube.search.suggestions.list',
+					'youtube.trending.posts.list',
 				],
 			},
 		},
@@ -671,7 +766,7 @@ export const fieldProperties: INodeProperties[] = [
 		},
 		displayOptions: {
 			show: {
-				resource: ['instagram', 'reddit', 'tiktok', 'twitter'],
+				resource: ['instagram', 'reddit', 'tiktok', 'twitter', 'youtube'],
 				operation: [
 					'instagram.comment.likers.list',
 					'instagram.hashtag.posts.list',
@@ -747,6 +842,23 @@ export const fieldProperties: INodeProperties[] = [
 					'twitter.search.posts.list',
 					'twitter.search.suggestions.list',
 					'twitter.search.users.list',
+					'youtube.communityPost.comments.list',
+					'youtube.hashtag.posts.list',
+					'youtube.playlist.posts.list',
+					'youtube.post.comment.replies.list',
+					'youtube.post.comments.list',
+					'youtube.post.related.list',
+					'youtube.post.soundPosts.list',
+					'youtube.profile.communityPosts.list',
+					'youtube.profile.livestreams.list',
+					'youtube.profile.playlists.list',
+					'youtube.profile.products.list',
+					'youtube.profile.search.list',
+					'youtube.profile.shorts.list',
+					'youtube.profile.videos.list',
+					'youtube.search.playlists.list',
+					'youtube.search.posts.list',
+					'youtube.search.profiles.list',
 				],
 			},
 		},
@@ -762,7 +874,7 @@ export const fieldProperties: INodeProperties[] = [
 		description: 'The most pages to read when Return All is on. Each page is a separate request, and every page is billed.',
 		displayOptions: {
 			show: {
-				resource: ['instagram', 'reddit', 'tiktok', 'twitter'],
+				resource: ['instagram', 'reddit', 'tiktok', 'twitter', 'youtube'],
 				operation: [
 					'instagram.comment.likers.list',
 					'instagram.hashtag.posts.list',
@@ -838,6 +950,23 @@ export const fieldProperties: INodeProperties[] = [
 					'twitter.search.posts.list',
 					'twitter.search.suggestions.list',
 					'twitter.search.users.list',
+					'youtube.communityPost.comments.list',
+					'youtube.hashtag.posts.list',
+					'youtube.playlist.posts.list',
+					'youtube.post.comment.replies.list',
+					'youtube.post.comments.list',
+					'youtube.post.related.list',
+					'youtube.post.soundPosts.list',
+					'youtube.profile.communityPosts.list',
+					'youtube.profile.livestreams.list',
+					'youtube.profile.playlists.list',
+					'youtube.profile.products.list',
+					'youtube.profile.search.list',
+					'youtube.profile.shorts.list',
+					'youtube.profile.videos.list',
+					'youtube.search.playlists.list',
+					'youtube.search.posts.list',
+					'youtube.search.profiles.list',
 				],
 				returnAll: [true],
 			},
@@ -1513,6 +1642,395 @@ export const fieldProperties: INodeProperties[] = [
 			show: {
 				resource: ['twitter'],
 				operation: ['twitter.search.posts.list'],
+			},
+		},
+	},
+	{
+		displayName: 'Options',
+		name: 'options',
+		type: 'collection',
+		placeholder: 'Add Option',
+		default: {},
+		options: [
+			{
+				displayName: 'Country',
+				name: 'country',
+				type: 'string',
+				default: '',
+				description: 'Two-letter ISO 3166 country code. The default is US.',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'country',
+						value: '={{ $value || undefined }}',
+					},
+				},
+			},
+		],
+		displayOptions: {
+			show: {
+				resource: ['youtube'],
+				operation: [
+					'youtube.charts.artists.list',
+					'youtube.charts.tracks.list',
+					'youtube.charts.videos.list',
+				],
+			},
+		},
+	},
+	{
+		displayName: 'Options',
+		name: 'options',
+		type: 'collection',
+		placeholder: 'Add Option',
+		default: {},
+		options: [
+			{
+				displayName: 'Sort',
+				name: 'sort',
+				type: 'options',
+				options: [
+					{
+						name: 'Newest',
+						value: 'newest',
+					},
+					{
+						name: 'Top',
+						value: 'top',
+					},
+				],
+				default: 'top',
+				description: 'Result ordering for this operation',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'sort',
+					},
+				},
+			},
+		],
+		displayOptions: {
+			show: {
+				resource: ['youtube'],
+				operation: ['youtube.communityPost.comments.list', 'youtube.post.comments.list'],
+			},
+		},
+	},
+	{
+		displayName: 'Options',
+		name: 'options',
+		type: 'collection',
+		placeholder: 'Add Option',
+		default: {},
+		options: [
+			{
+				displayName: 'Language',
+				name: 'language',
+				type: 'string',
+				default: '',
+				description: 'Caption language code, such as en or es-419. The default is the spoken language.',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'language',
+						value: '={{ $value || undefined }}',
+					},
+				},
+			},
+		],
+		displayOptions: {
+			show: {
+				resource: ['youtube'],
+				operation: ['youtube.post.transcript.get'],
+			},
+		},
+	},
+	{
+		displayName: 'Options',
+		name: 'options',
+		type: 'collection',
+		placeholder: 'Add Option',
+		default: {},
+		options: [
+			{
+				displayName: 'Sort',
+				name: 'sort',
+				type: 'options',
+				options: [
+					{
+						name: 'Newest',
+						value: 'newest',
+					},
+					{
+						name: 'Oldest',
+						value: 'oldest',
+					},
+					{
+						name: 'Popular',
+						value: 'popular',
+					},
+				],
+				default: 'newest',
+				description: 'Result ordering for this operation',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'sort',
+					},
+				},
+			},
+		],
+		displayOptions: {
+			show: {
+				resource: ['youtube'],
+				operation: ['youtube.profile.livestreams.list', 'youtube.profile.shorts.list'],
+			},
+		},
+	},
+	{
+		displayName: 'Options',
+		name: 'options',
+		type: 'collection',
+		placeholder: 'Add Option',
+		default: {},
+		options: [
+			{
+				displayName: 'Since',
+				name: 'since',
+				type: 'dateTime',
+				default: '',
+				description: 'Return posts captured at or after this time',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'since',
+						value: '={{ $value ? new Date($value).toISOString() : undefined }}',
+					},
+				},
+			},
+			{
+				displayName: 'Sort',
+				name: 'sort',
+				type: 'options',
+				options: [
+					{
+						name: 'Newest',
+						value: 'newest',
+					},
+					{
+						name: 'Oldest',
+						value: 'oldest',
+					},
+					{
+						name: 'Popular',
+						value: 'popular',
+					},
+				],
+				default: 'newest',
+				description: 'Result ordering for this operation',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'sort',
+					},
+				},
+			},
+		],
+		displayOptions: {
+			show: {
+				resource: ['youtube'],
+				operation: ['youtube.profile.videos.list'],
+			},
+		},
+	},
+	{
+		displayName: 'Options',
+		name: 'options',
+		type: 'collection',
+		placeholder: 'Add Option',
+		default: {},
+		options: [
+			{
+				displayName: 'Duration',
+				name: 'duration',
+				type: 'options',
+				options: [
+					{
+						name: 'Long',
+						value: 'long',
+					},
+					{
+						name: 'Medium',
+						value: 'medium',
+					},
+					{
+						name: 'Short',
+						value: 'short',
+					},
+				],
+				default: 'short',
+				description: 'Video length: short is under 4 minutes, medium 4 to 20, long over 20',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'duration',
+					},
+				},
+			},
+			{
+				displayName: 'Media Type',
+				name: 'mediaType',
+				type: 'options',
+				options: [
+					{
+						name: 'Short',
+						value: 'short',
+					},
+					{
+						name: 'Video',
+						value: 'video',
+					},
+				],
+				default: 'video',
+				description: 'Media type filter',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'type',
+					},
+				},
+			},
+			{
+				displayName: 'Sort',
+				name: 'sort',
+				type: 'options',
+				options: [
+					{
+						name: 'Date',
+						value: 'date',
+					},
+					{
+						name: 'Rating',
+						value: 'rating',
+					},
+					{
+						name: 'Relevance',
+						value: 'relevance',
+					},
+					{
+						name: 'Views',
+						value: 'views',
+					},
+				],
+				default: 'relevance',
+				description: 'Result ordering for this operation',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'sort',
+					},
+				},
+			},
+			{
+				displayName: 'Uploaded',
+				name: 'uploaded',
+				type: 'options',
+				options: [
+					{
+						name: 'Hour',
+						value: 'hour',
+					},
+					{
+						name: 'Month',
+						value: 'month',
+					},
+					{
+						name: 'Today',
+						value: 'today',
+					},
+					{
+						name: 'Week',
+						value: 'week',
+					},
+					{
+						name: 'Year',
+						value: 'year',
+					},
+				],
+				default: 'hour',
+				description: 'Upload time window',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'uploaded',
+					},
+				},
+			},
+		],
+		displayOptions: {
+			show: {
+				resource: ['youtube'],
+				operation: ['youtube.search.posts.list'],
+			},
+		},
+	},
+	{
+		displayName: 'Options',
+		name: 'options',
+		type: 'collection',
+		placeholder: 'Add Option',
+		default: {},
+		options: [
+			{
+				displayName: 'Category',
+				name: 'category',
+				type: 'options',
+				options: [
+					{
+						name: 'Games',
+						value: 'games',
+					},
+					{
+						name: 'Movies',
+						value: 'movies',
+					},
+					{
+						name: 'Music',
+						value: 'music',
+					},
+					{
+						name: 'Now',
+						value: 'now',
+					},
+				],
+				default: 'now',
+				description: 'Trending category',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'category',
+					},
+				},
+			},
+			{
+				displayName: 'Country',
+				name: 'country',
+				type: 'string',
+				default: '',
+				description: 'Two-letter ISO 3166 country code. The default is US.',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'country',
+						value: '={{ $value || undefined }}',
+					},
+				},
+			},
+		],
+		displayOptions: {
+			show: {
+				resource: ['youtube'],
+				operation: ['youtube.trending.posts.list'],
 			},
 		},
 	},

@@ -1,7 +1,7 @@
 {
 	"name": "@openhandle/n8n-nodes-openhandle",
 	"version": "0.1.0",
-	"description": "n8n node for Openhandle: read public Instagram, TikTok, X, and Reddit data",
+	"description": "n8n node for Openhandle: read public Instagram, TikTok, X, Reddit, and YouTube data",
 	"license": "MIT",
 	"homepage": "https://github.com/openhandlehq/n8n-nodes-openhandle",
 	"bugs": {

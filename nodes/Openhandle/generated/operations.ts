@@ -2221,4 +2221,567 @@ export const operationProperties: INodeProperties[] = [
 		],
 		default: 'twitter.profile.get',
 	},
+	{
+		displayName: 'Operation',
+		name: 'operation',
+		type: 'options',
+		noDataExpression: true,
+		displayOptions: {
+			show: {
+				resource: ['youtube'],
+			},
+		},
+		options: [
+			{
+				name: 'Get Community Post',
+				value: 'youtube.communityPost.get',
+				description: 'Return one public YouTube community post',
+				action: 'Get a community post',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/v1/youtube/community-posts/{{encodeURIComponent(String($parameter["identifier"]).trim())}}',
+					},
+				},
+			},
+			{
+				name: 'Get Post',
+				value: 'youtube.post.get',
+				description: 'Return one public YouTube video, Short, or livestream with its exact counts and publication time',
+				action: 'Get a post',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/v1/youtube/posts/{{encodeURIComponent(String($parameter["identifier"]).trim())}}',
+					},
+				},
+			},
+			{
+				name: 'Get Profile',
+				value: 'youtube.profile.get',
+				description: 'Return one public YouTube channel',
+				action: 'Get a profile',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/v1/youtube/profiles/{{encodeURIComponent(String($parameter["identifier"]).trim())}}',
+					},
+				},
+			},
+			{
+				name: 'Get Transcript',
+				value: 'youtube.post.transcript.get',
+				description: 'Return the timed caption text of a public YouTube video in one of its caption languages',
+				action: 'Get a transcript',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/v1/youtube/posts/{{encodeURIComponent(String($parameter["identifier"]).trim())}}/transcript',
+					},
+				},
+			},
+			{
+				name: 'List Comment Replies',
+				value: 'youtube.post.comment.replies.list',
+				description: 'Return the replies of one YouTube comment',
+				action: 'List comment replies',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/v1/youtube/posts/{{encodeURIComponent(String($parameter["identifier"]).trim())}}/comments/{{encodeURIComponent(String($parameter["commentId"]).trim())}}/replies',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								enabled: '={{ !$parameter["returnAll"] }}',
+								properties: {
+									property: 'data',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				name: 'List Community Post Comments',
+				value: 'youtube.communityPost.comments.list',
+				description: 'Return the comments of a public YouTube community post',
+				action: 'List community post comments',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/v1/youtube/community-posts/{{encodeURIComponent(String($parameter["identifier"]).trim())}}/comments',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								enabled: '={{ !$parameter["returnAll"] }}',
+								properties: {
+									property: 'data',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				name: 'List Hashtag Posts',
+				value: 'youtube.hashtag.posts.list',
+				description: 'Return the public YouTube videos and Shorts of one hashtag',
+				action: 'List hashtag posts',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/v1/youtube/hashtags/{{encodeURIComponent(String($parameter["identifier"]).trim())}}/posts',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								enabled: '={{ !$parameter["returnAll"] }}',
+								properties: {
+									property: 'data',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				name: 'List Playlist Posts',
+				value: 'youtube.playlist.posts.list',
+				description: 'Return the videos of a public YouTube playlist',
+				action: 'List playlist posts',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/v1/youtube/playlists/{{encodeURIComponent(String($parameter["identifier"]).trim())}}/posts',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								enabled: '={{ !$parameter["returnAll"] }}',
+								properties: {
+									property: 'data',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				name: 'List Post Comments',
+				value: 'youtube.post.comments.list',
+				description: 'Return the top-level comments of a public YouTube video or Short',
+				action: 'List post comments',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/v1/youtube/posts/{{encodeURIComponent(String($parameter["identifier"]).trim())}}/comments',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								enabled: '={{ !$parameter["returnAll"] }}',
+								properties: {
+									property: 'data',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				name: 'List Posts Using Same Sound',
+				value: 'youtube.post.soundPosts.list',
+				description: 'Return the Shorts that use the sound of a public Short',
+				action: 'List posts using the same sound',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/v1/youtube/posts/{{encodeURIComponent(String($parameter["identifier"]).trim())}}/sound-posts',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								enabled: '={{ !$parameter["returnAll"] }}',
+								properties: {
+									property: 'data',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				name: 'List Profile Community Posts',
+				value: 'youtube.profile.communityPosts.list',
+				description: 'Return the text, image, and poll posts of a public YouTube channel',
+				action: 'List profile community posts',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/v1/youtube/profiles/{{encodeURIComponent(String($parameter["identifier"]).trim())}}/community-posts',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								enabled: '={{ !$parameter["returnAll"] }}',
+								properties: {
+									property: 'data',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				name: 'List Profile Livestreams',
+				value: 'youtube.profile.livestreams.list',
+				description: 'Return the current, upcoming, and past livestreams of a public YouTube channel',
+				action: 'List profile livestreams',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/v1/youtube/profiles/{{encodeURIComponent(String($parameter["identifier"]).trim())}}/livestreams',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								enabled: '={{ !$parameter["returnAll"] }}',
+								properties: {
+									property: 'data',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				name: 'List Profile Playlists',
+				value: 'youtube.profile.playlists.list',
+				description: 'Return the public playlists of a YouTube channel',
+				action: 'List profile playlists',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/v1/youtube/profiles/{{encodeURIComponent(String($parameter["identifier"]).trim())}}/playlists',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								enabled: '={{ !$parameter["returnAll"] }}',
+								properties: {
+									property: 'data',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				name: 'List Profile Products',
+				value: 'youtube.profile.products.list',
+				description: 'Return the products on the store shelf of a public YouTube channel',
+				action: 'List profile products',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/v1/youtube/profiles/{{encodeURIComponent(String($parameter["identifier"]).trim())}}/products',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								enabled: '={{ !$parameter["returnAll"] }}',
+								properties: {
+									property: 'data',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				name: 'List Profile Shorts',
+				value: 'youtube.profile.shorts.list',
+				description: 'Return the Shorts of a public YouTube channel',
+				action: 'List profile shorts',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/v1/youtube/profiles/{{encodeURIComponent(String($parameter["identifier"]).trim())}}/shorts',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								enabled: '={{ !$parameter["returnAll"] }}',
+								properties: {
+									property: 'data',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				name: 'List Profile Videos',
+				value: 'youtube.profile.videos.list',
+				description: 'Return the videos of a public YouTube channel',
+				action: 'List profile videos',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/v1/youtube/profiles/{{encodeURIComponent(String($parameter["identifier"]).trim())}}/videos',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								enabled: '={{ !$parameter["returnAll"] }}',
+								properties: {
+									property: 'data',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				name: 'List Related Posts',
+				value: 'youtube.post.related.list',
+				description: 'Return the videos YouTube suggests next to a public video',
+				action: 'List related posts',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/v1/youtube/posts/{{encodeURIComponent(String($parameter["identifier"]).trim())}}/related',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								enabled: '={{ !$parameter["returnAll"] }}',
+								properties: {
+									property: 'data',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				name: 'List Top Artists',
+				value: 'youtube.charts.artists.list',
+				description: 'Return the weekly top artists chart of one country',
+				action: 'List top artists',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '/v1/youtube/charts/artists',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								properties: {
+									property: 'data',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				name: 'List Top Music Videos',
+				value: 'youtube.charts.videos.list',
+				description: 'Return the weekly top music videos chart of one country',
+				action: 'List top music videos',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '/v1/youtube/charts/videos',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								properties: {
+									property: 'data',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				name: 'List Top Songs',
+				value: 'youtube.charts.tracks.list',
+				description: 'Return the weekly top songs chart of one country',
+				action: 'List top songs',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '/v1/youtube/charts/tracks',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								properties: {
+									property: 'data',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				name: 'List Trending Posts',
+				value: 'youtube.trending.posts.list',
+				description: 'Return the trending YouTube videos of one country',
+				action: 'List trending posts',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '/v1/youtube/trending/posts',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								properties: {
+									property: 'data',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				name: 'Search Playlists',
+				value: 'youtube.search.playlists.list',
+				description: 'Search public YouTube playlists and podcasts',
+				action: 'Search playlists',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '/v1/youtube/search/playlists',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								enabled: '={{ !$parameter["returnAll"] }}',
+								properties: {
+									property: 'data',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				name: 'Search Posts',
+				value: 'youtube.search.posts.list',
+				description: 'Search public YouTube videos or Shorts',
+				action: 'Search posts',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '/v1/youtube/search/posts',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								enabled: '={{ !$parameter["returnAll"] }}',
+								properties: {
+									property: 'data',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				name: 'Search Profile Videos',
+				value: 'youtube.profile.search.list',
+				description: 'Search the videos of one public YouTube channel',
+				action: 'Search profile videos',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/v1/youtube/profiles/{{encodeURIComponent(String($parameter["identifier"]).trim())}}/search',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								enabled: '={{ !$parameter["returnAll"] }}',
+								properties: {
+									property: 'data',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				name: 'Search Profiles',
+				value: 'youtube.search.profiles.list',
+				description: 'Search public YouTube channels',
+				action: 'Search profiles',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '/v1/youtube/search/profiles',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								enabled: '={{ !$parameter["returnAll"] }}',
+								properties: {
+									property: 'data',
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				name: 'Search Suggestions',
+				value: 'youtube.search.suggestions.list',
+				description: 'Return the autocomplete queries YouTube offers for a partial search',
+				action: 'Search suggestions',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '/v1/youtube/search/suggestions',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								properties: {
+									property: 'data',
+								},
+							},
+						],
+					},
+				},
+			},
+		],
+		default: 'youtube.profile.get',
+	},
 ];

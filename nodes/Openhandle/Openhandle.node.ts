@@ -11,7 +11,7 @@ export class Openhandle implements INodeType {
 		group: ['input'],
 		version: 1,
 		subtitle: '={{$parameter["operation"]}}',
-		description: 'Read public Instagram, TikTok, X, and Reddit data',
+		description: 'Read public Instagram, TikTok, X, Reddit, and YouTube data',
 		defaults: {
 			name: 'Openhandle',
 		},

@@ -29,6 +29,10 @@ export const resourceProperties: INodeProperties[] = [
 				name: 'X',
 				value: 'twitter',
 			},
+			{
+				name: 'YouTube',
+				value: 'youtube',
+			},
 		],
 		default: 'instagram',
 	},

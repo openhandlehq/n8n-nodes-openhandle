@@ -16,6 +16,7 @@ const resourceLabels = {
 	tiktok: 'TikTok',
 	twitter: 'X',
 	url: 'URL',
+	youtube: 'YouTube',
 };
 
 const defaultOperations = {
@@ -24,15 +25,20 @@ const defaultOperations = {
 	tiktok: 'tiktok.profile.get',
 	twitter: 'twitter.profile.get',
 	url: 'fetch',
+	youtube: 'youtube.profile.get',
 };
 
 const parameterNames = {
+	category: { name: 'category', displayName: 'Category' },
 	comment: { name: 'commentText', displayName: 'Comment Text' },
 	comment_id: { name: 'commentId', displayName: 'Comment ID' },
+	country: { name: 'country', displayName: 'Country' },
 	depth: { name: 'depth', displayName: 'Depth' },
+	duration: { name: 'duration', displayName: 'Duration' },
 	freshness: { name: 'freshness', displayName: 'Freshness' },
 	identifier: { name: 'identifier', displayName: 'Identifier' },
 	ids: { name: 'ids', displayName: 'IDs' },
+	language: { name: 'language', displayName: 'Language' },
 	limit: { name: 'limit', displayName: 'Limit' },
 	media_id: { name: 'mediaId', displayName: 'Media ID' },
 	page: { name: 'page', displayName: 'Wiki Page' },
@@ -42,13 +48,16 @@ const parameterNames = {
 	sort: { name: 'sort', displayName: 'Sort' },
 	subreddit: { name: 'subreddit', displayName: 'Subreddit' },
 	t: { name: 'timeWindow', displayName: 'Time Window' },
+	token: { name: 'repliesReference', displayName: 'Replies Reference' },
 	type: { name: 'mediaType', displayName: 'Media Type' },
+	uploaded: { name: 'uploaded', displayName: 'Uploaded' },
 	url: { name: 'url', displayName: 'URL' },
 };
 
 const propertyOrder = [
 	'identifier',
 	'commentId',
+	'repliesReference',
 	'playlistId',
 	'page',
 	'url',
@@ -97,6 +106,7 @@ const descriptionOverrides = {
 
 const summaryOverrides = {
 	'Get post oEmbed data': 'Get post embed data',
+	'List profile Shorts': 'List profile shorts',
 };
 
 const smallWords = new Set([
@@ -575,6 +585,7 @@ function enumLabel(value) {
 function platformText(text) {
 	return text
 		.replace(/\bTiktok\b/g, 'TikTok')
+		.replace(/\bYoutube\b/g, 'YouTube')
 		.replace(/\ba Twitter\b/g, 'an X')
 		.replace(/\bTwitter\b/g, 'X');
 }

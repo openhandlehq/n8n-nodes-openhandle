@@ -1,6 +1,6 @@
 # @openhandle/n8n-nodes-openhandle
 
-This is an n8n community node for [Openhandle](https://openhandle.dev). It reads public Instagram, TikTok, X, and Reddit data inside your n8n workflows.
+This is an n8n community node for [Openhandle](https://openhandle.dev). It reads public Instagram, TikTok, X, Reddit, and YouTube data inside your n8n workflows.
 
 Look up profiles or pull an account's latest posts. You can also search hashtags. Responses use the same top-level JSON fields across all four platforms. The node also works as a tool for the n8n AI Agent.
 
