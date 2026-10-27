@@ -2257,6 +2257,18 @@ export const operationProperties: INodeProperties[] = [
 				},
 			},
 			{
+				name: 'Get Post Files',
+				value: 'youtube.post.files.get',
+				description: 'Return the video and audio streams of a public YouTube video as download links',
+				action: 'Get post files',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/v1/youtube/posts/{{encodeURIComponent(String($parameter["identifier"]).trim())}}/files',
+					},
+				},
+			},
+			{
 				name: 'Get Profile',
 				value: 'youtube.profile.get',
 				description: 'Return one public YouTube channel',
