@@ -29,6 +29,7 @@ const defaultOperations = {
 };
 
 const parameterNames = {
+	at: { name: 'atSeconds', displayName: 'At (Seconds)' },
 	category: { name: 'category', displayName: 'Category' },
 	comment: { name: 'commentText', displayName: 'Comment Text' },
 	comment_id: { name: 'commentId', displayName: 'Comment ID' },
@@ -58,6 +59,7 @@ const propertyOrder = [
 	'identifier',
 	'commentId',
 	'repliesReference',
+	'atSeconds',
 	'playlistId',
 	'page',
 	'url',
@@ -437,7 +439,8 @@ function propertyType(parameter) {
 			typeOptions.maxValue = schema.maximum;
 		}
 		const fallback = schema.default ?? schema.maximum ?? schema.minimum ?? 0;
-		return { type: 'number', typeOptions, default: parameter.apiName === 'limit' ? 50 : fallback };
+		const defaults = { limit: 50, at: 0 };
+		return { type: 'number', typeOptions, default: defaults[parameter.apiName] ?? fallback };
 	}
 	if (schema.format === 'date-time') {
 		return { type: 'dateTime', default: '' };

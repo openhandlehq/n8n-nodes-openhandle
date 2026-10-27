@@ -2269,6 +2269,30 @@ export const operationProperties: INodeProperties[] = [
 				},
 			},
 			{
+				name: 'Get Post Frame',
+				value: 'youtube.post.frame.get',
+				description: 'Return one still frame of a public video at a time in seconds, in every resolution the video has',
+				action: 'Get post frame',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/v1/youtube/posts/{{encodeURIComponent(String($parameter["identifier"]).trim())}}/frame',
+					},
+				},
+			},
+			{
+				name: 'Get Post Storyboard',
+				value: 'youtube.post.storyboard.get',
+				description: 'Return YouTube\'s preview frames of a public video: one small frame every few seconds, packed into image sheets, with the position of every frame',
+				action: 'Get post storyboard',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/v1/youtube/posts/{{encodeURIComponent(String($parameter["identifier"]).trim())}}/storyboard',
+					},
+				},
+			},
+			{
 				name: 'Get Profile',
 				value: 'youtube.profile.get',
 				description: 'Return one public YouTube channel',
