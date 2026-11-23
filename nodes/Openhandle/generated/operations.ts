@@ -2228,6 +2228,43 @@ export const operationProperties: INodeProperties[] = [
 		noDataExpression: true,
 		displayOptions: {
 			show: {
+				resource: ['webhookEvents'],
+			},
+		},
+		options: [
+			{
+				name: 'List Webhook Events of This Workspace',
+				value: 'webhookEvents.list',
+				description: 'Every event of this workspace, oldest first: the same events a webhook pushes',
+				action: 'List the webhook events of this workspace',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '/v1/webhook-events',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								enabled: '={{ !$parameter["returnAll"] }}',
+								properties: {
+									property: 'data',
+								},
+							},
+						],
+					},
+				},
+			},
+		],
+		default: 'webhookEvents.list',
+	},
+	{
+		displayName: 'Operation',
+		name: 'operation',
+		type: 'options',
+		noDataExpression: true,
+		displayOptions: {
+			show: {
 				resource: ['youtube'],
 			},
 		},

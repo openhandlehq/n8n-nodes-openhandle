@@ -26,6 +26,10 @@ export const resourceProperties: INodeProperties[] = [
 				value: 'url',
 			},
 			{
+				name: 'Webhook Event',
+				value: 'webhookEvents',
+			},
+			{
 				name: 'X',
 				value: 'twitter',
 			},

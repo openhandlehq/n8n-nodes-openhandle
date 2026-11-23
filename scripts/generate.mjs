@@ -16,6 +16,7 @@ const resourceLabels = {
 	tiktok: 'TikTok',
 	twitter: 'X',
 	url: 'URL',
+	webhookEvents: 'Webhook Event',
 	youtube: 'YouTube',
 };
 
@@ -25,6 +26,7 @@ const defaultOperations = {
 	tiktok: 'tiktok.profile.get',
 	twitter: 'twitter.profile.get',
 	url: 'fetch',
+	webhookEvents: 'webhookEvents.list',
 	youtube: 'youtube.profile.get',
 };
 
@@ -55,6 +57,10 @@ const parameterNames = {
 	url: { name: 'url', displayName: 'URL' },
 };
 
+const resourceParameterNames = {
+	'webhookEvents.type': { name: 'eventType', displayName: 'Event Type' },
+};
+
 const propertyOrder = [
 	'identifier',
 	'commentId',
@@ -68,6 +74,7 @@ const propertyOrder = [
 	'commentText',
 	'ids',
 	'mediaType',
+	'eventType',
 	'freshness',
 	'returnAll',
 	'maxPages',
@@ -76,6 +83,7 @@ const propertyOrder = [
 
 const enumLabels = {
 	all: 'All Time',
+	'profile.blocked': 'Profile Blocked',
 	qa: 'Q&A',
 };
 
@@ -104,6 +112,10 @@ const identifierHints = {
 
 const descriptionOverrides = {
 	since: 'Return posts captured at or after this time',
+};
+
+const resourceDescriptionOverrides = {
+	'webhookEvents.since': 'Return events created at or after this time',
 };
 
 const summaryOverrides = {
@@ -378,7 +390,9 @@ function propertyRank(name) {
 }
 
 function fieldProperty(parameter, definition, isOptional) {
-	const naming = parameterNames[parameter.apiName];
+	const naming =
+		resourceParameterNames[`${definition.resource}.${parameter.apiName}`] ??
+		parameterNames[parameter.apiName];
 	if (!naming) {
 		throw new Error(`Parameter ${parameter.apiName} of ${definition.value} has no n8n name.`);
 	}
@@ -475,6 +489,10 @@ function parameterDescription(parameter, definition) {
 	if (parameter.apiName === 'limit') {
 		return 'Max number of results to return';
 	}
+	const resourceOverride = resourceDescriptionOverrides[`${definition.resource}.${parameter.apiName}`];
+	if (resourceOverride) {
+		return resourceOverride;
+	}
 	if (descriptionOverrides[parameter.apiName]) {
 		return descriptionOverrides[parameter.apiName];
 	}
@@ -528,7 +546,7 @@ function maxPagesProperty() {
 		typeOptions: { minValue: 1 },
 		default: 5,
 		description:
-			'The most pages to read when Return All is on. Each page is a separate request, and every page is billed.',
+			'The most pages to read when Return All is on. Each page is a separate request, and every page of a platform read is billed.',
 		displayOptions: { show: { returnAll: [true] } },
 	};
 }

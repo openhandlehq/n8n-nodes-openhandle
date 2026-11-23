@@ -796,7 +796,7 @@ export const fieldProperties: INodeProperties[] = [
 		},
 		displayOptions: {
 			show: {
-				resource: ['instagram', 'reddit', 'tiktok', 'twitter', 'youtube'],
+				resource: ['instagram', 'reddit', 'tiktok', 'twitter', 'webhookEvents', 'youtube'],
 				operation: [
 					'instagram.comment.likers.list',
 					'instagram.hashtag.posts.list',
@@ -872,6 +872,7 @@ export const fieldProperties: INodeProperties[] = [
 					'twitter.search.posts.list',
 					'twitter.search.suggestions.list',
 					'twitter.search.users.list',
+					'webhookEvents.list',
 					'youtube.communityPost.comments.list',
 					'youtube.hashtag.posts.list',
 					'youtube.playlist.posts.list',
@@ -901,10 +902,10 @@ export const fieldProperties: INodeProperties[] = [
 			minValue: 1,
 		},
 		default: 5,
-		description: 'The most pages to read when Return All is on. Each page is a separate request, and every page is billed.',
+		description: 'The most pages to read when Return All is on. Each page is a separate request, and every page of a platform read is billed.',
 		displayOptions: {
 			show: {
-				resource: ['instagram', 'reddit', 'tiktok', 'twitter', 'youtube'],
+				resource: ['instagram', 'reddit', 'tiktok', 'twitter', 'webhookEvents', 'youtube'],
 				operation: [
 					'instagram.comment.likers.list',
 					'instagram.hashtag.posts.list',
@@ -980,6 +981,7 @@ export const fieldProperties: INodeProperties[] = [
 					'twitter.search.posts.list',
 					'twitter.search.suggestions.list',
 					'twitter.search.users.list',
+					'webhookEvents.list',
 					'youtube.communityPost.comments.list',
 					'youtube.hashtag.posts.list',
 					'youtube.playlist.posts.list',
@@ -1672,6 +1674,71 @@ export const fieldProperties: INodeProperties[] = [
 			show: {
 				resource: ['twitter'],
 				operation: ['twitter.search.posts.list'],
+			},
+		},
+	},
+	{
+		displayName: 'Options',
+		name: 'options',
+		type: 'collection',
+		placeholder: 'Add Option',
+		default: {},
+		options: [
+			{
+				displayName: 'Event Type',
+				name: 'eventType',
+				type: 'options',
+				options: [
+					{
+						name: 'Profile Blocked',
+						value: 'profile.blocked',
+					},
+				],
+				default: 'profile.blocked',
+				description: 'Return only events of this type',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'type',
+					},
+				},
+			},
+			{
+				displayName: 'Limit',
+				name: 'limit',
+				type: 'number',
+				typeOptions: {
+					minValue: 1,
+					maxValue: 100,
+				},
+				default: 50,
+				description: 'Max number of results to return',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'limit',
+					},
+				},
+			},
+			{
+				displayName: 'Since',
+				name: 'since',
+				type: 'dateTime',
+				default: '',
+				description: 'Return events created at or after this time',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'since',
+						value: '={{ $value ? new Date($value).toISOString() : undefined }}',
+					},
+				},
+			},
+		],
+		displayOptions: {
+			show: {
+				resource: ['webhookEvents'],
+				operation: ['webhookEvents.list'],
 			},
 		},
 	},
