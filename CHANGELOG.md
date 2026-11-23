@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0
+
+- Webhook Event resource: list `profile.blocked` events from the Openhandle event feed, with Since, Event Type and Return All.
+
 ## 0.1.0
 
 - First release of the Openhandle node for n8n.
